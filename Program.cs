@@ -190,7 +190,6 @@ class Program
         };
 
         var lines = scripter.Script(tableUrns.ToArray());
-
         foreach (string line in lines)
         {
             Console.Out.WriteLine(line);

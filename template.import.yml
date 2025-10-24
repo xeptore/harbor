@@ -1,0 +1,16 @@
+# Required
+host: 127.0.0.1
+# Optional
+port: 1433
+# Required
+database: newdb
+# Optional
+encrypt: false
+# Optional
+trust_server_certificate: true
+# Optional
+connect_timeout: 10
+# Required
+user: sa
+# Required
+password: YourStrong@Passw0rd

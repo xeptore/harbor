@@ -27,6 +27,8 @@ class Program
 
         public bool TrustServerCertificate { get; set; } = true;
 
+        public int ConnectTimeout { get; set; } = 10;
+
         [Required]
         public string User { get; set; } = "";
 
@@ -50,6 +52,8 @@ class Program
         public bool Encrypt { get; set; } = false;
 
         public bool TrustServerCertificate { get; set; } = true;
+
+        public int ConnectTimeout { get; set; } = 10;
 
         [Required]
         public string User { get; set; } = "";
@@ -127,7 +131,7 @@ class Program
         {
             ApplicationIntent = "ReadOnly",
             ApplicationName = "harbor",
-            ConnectTimeout = 5,
+            ConnectTimeout = config.ConnectTimeout,
             DatabaseName = config.Database,
             EncryptConnection = config.Encrypt,
             TrustServerCertificate = config.TrustServerCertificate,
@@ -213,7 +217,7 @@ class Program
 
         var masterConnBuilder = new SqlConnectionStringBuilder
         {
-            ConnectTimeout = 5,
+            ConnectTimeout = config.ConnectTimeout,
             DataSource = $"{config.Host},{config.Port}",
             Encrypt = config.Encrypt,
             InitialCatalog = "master",
@@ -239,7 +243,7 @@ class Program
 
         var dbConnBuilder = new SqlConnectionStringBuilder
         {
-            ConnectTimeout = 5,
+            ConnectTimeout = config.ConnectTimeout,
             DataSource = $"{config.Host},{config.Port}",
             Encrypt = config.Encrypt,
             InitialCatalog = config.Database,

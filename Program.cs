@@ -77,7 +77,7 @@ class Program
         exportCommand.SetAction(parseResult =>
         {
             var configFile = parseResult.GetRequiredValue(configFileOption);
-            Export(configFile);
+            return Export(configFile);
         });
         exportCommand.Aliases.Add("dump");
         rootCommand.Subcommands.Add(exportCommand);
@@ -98,14 +98,14 @@ class Program
         {
             var configFile = parseResult.GetRequiredValue(configFileOption);
             var scriptFile = parseResult.GetRequiredValue(importScriptArgument);
-            Import(configFile, scriptFile);
+            return Import(configFile, scriptFile);
         });
         rootCommand.Subcommands.Add(importCommand);
 
         return rootCommand.Parse(args).Invoke();
     }
 
-    internal static void Export(FileInfo configFile)
+    internal static int Export(FileInfo configFile)
     {
         Console.Error.WriteLine("📤 Exporting schema...");
 
@@ -119,7 +119,7 @@ class Program
         if (config.Tables.Count == 0)
         {
             Console.Error.WriteLine("❌ No tables specified in configuration.");
-            Environment.Exit(1);
+            return 1;
         }
 
         Console.Error.WriteLine($"🔌 Connecting to {config.Host}:{config.Port} as {config.User}...");
@@ -138,7 +138,7 @@ class Program
         if (db == null)
         {
             Console.Error.WriteLine($"Database '{config.Database}' not found!");
-            Environment.Exit(1);
+            return 1;
         }
 
         List<Urn> tableUrns = [];
@@ -161,7 +161,7 @@ class Program
         if (tableUrns.Count == 0)
         {
             Console.Error.WriteLine("❌ No valid tables found to script.");
-            Environment.Exit(1);
+            return 1;
         }
 
         var scripter = new Scripter(server)
@@ -194,9 +194,11 @@ class Program
         }
 
         Console.Error.WriteLine("✅ Schema scripting complete.");
+
+        return 0;
     }
 
-    internal static void Import(FileInfo configFile, FileInfo scriptFile)
+    internal static int Import(FileInfo configFile, FileInfo scriptFile)
     {
         Console.Error.WriteLine($"📥 Importing schema from script {scriptFile.Name}...");
 
@@ -253,5 +255,7 @@ class Program
             var script = File.ReadAllText(scriptFile.FullName);
             server.ConnectionContext.ExecuteNonQuery(script);
         }
+
+        return 0;
     }
 }

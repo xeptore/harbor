@@ -1,0 +1,11 @@
+host: 192.168.1.206
+port: 1433
+database: Eways_Eways
+encrypt: false
+trust_server_certificate: true
+user: amirhossein
+password: laksdjf@#$%$#%uwuier1
+tables:
+  dbo:
+    - Eways_PanelShopOrders
+    - Eways_UserDB

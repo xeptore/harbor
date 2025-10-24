@@ -1,0 +1,7 @@
+host: 127.0.0.1
+port: 1433
+database: mydb
+encrypt: false
+trust_server_certificate: true
+user: sa
+password: <YourStrong@Passw0rd>

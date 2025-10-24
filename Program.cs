@@ -299,7 +299,7 @@ class Program
             server.ConnectionContext.ExecuteNonQuery(script);
         }
 
-        Console.WriteLine("✅ Schema import complete.");
+        Console.WriteLine("✅ Schema successfully imported.");
 
         return 0;
     }

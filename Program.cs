@@ -124,21 +124,9 @@ class Program
         rootCommand.Subcommands.Add(importCommand);
 
         var parseResult = rootCommand.Parse(args);
-        if (parseResult.Errors.Count > 0)
-        {
-            Console.ForegroundColor = ConsoleColor.DarkRed;
-            foreach (var error in parseResult.Errors)
-            {
-                Console.Error.WriteLine(error);
-            }
-            Console.ResetColor();
-            Console.Error.WriteLine();
-        }
-
         return parseResult.Invoke(new InvocationConfiguration
         {
             EnableDefaultExceptionHandler = true,
-            // Error = TextWriter.Null,
         });
     }
 
@@ -201,6 +189,8 @@ class Program
             return 1;
         }
 
+        var outFilePath = Path.GetFullPath("schema.sql");
+
         var scripter = new Scripter(server)
         {
             Options = {
@@ -218,7 +208,7 @@ class Program
                 ScriptData = false,
                 ScriptSchema = true,
                 ToFileOnly = true,
-                FileName = "schema.sql",
+                FileName = outFilePath,
             },
         };
 
@@ -229,7 +219,7 @@ class Program
             Console.Out.WriteLine("\n");
         }
 
-        Console.WriteLine("✅ Schema export complete.");
+        Console.WriteLine($"✅ Schema export successfully written to {outFilePath}.");
 
         return 0;
     }

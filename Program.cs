@@ -219,7 +219,7 @@ class Program
             Console.Out.WriteLine("\n");
         }
 
-        Console.WriteLine($"✅ Schema export successfully written to {outFilePath}.");
+        Console.WriteLine($"✅ Schema export successfully written to {outFilePath}");
 
         return 0;
     }

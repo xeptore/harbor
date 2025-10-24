@@ -1,16 +1,15 @@
-using System;
-using System.IO;
-using Microsoft.SqlServer.Management.Smo;
+using Microsoft.Data.SqlClient;
 using Microsoft.SqlServer.Management.Common;
+using Microsoft.SqlServer.Management.Sdk.Sfc;
+using Microsoft.SqlServer.Management.Smo;
+using System;
 using System.Collections.Generic;
+using System.CommandLine;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
+using System.Text;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
-using System.Text;
-using Microsoft.SqlServer.Management.Sdk.Sfc;
-using Microsoft.Data.SqlClient;
-using System.CommandLine;
-using System.Linq;
 
 class Program
 {

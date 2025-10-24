@@ -1,12 +1,14 @@
 # syntax=docker/dockerfile:1
 FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
-WORKDIR /src
+USER ubuntu
+WORKDIR /home/ubuntu/harbor
 COPY *.csproj ./
 RUN dotnet restore
-COPY . ./
+COPY --chown=ubuntu:ubuntu . ./
 RUN dotnet publish -c Release --no-restore
 
 FROM mcr.microsoft.com/dotnet/runtime:10.0 AS runtime
-WORKDIR /app
-COPY --from=build /src/bin/Release/net10.0/ .
+USER ubuntu
+WORKDIR /home/ubuntu/harbor
+COPY --chown=ubuntu:ubuntu --from=build /home/ubuntu/harbor/bin/Release/net10.0/ .
 ENTRYPOINT ["dotnet", "harbor.dll"]
